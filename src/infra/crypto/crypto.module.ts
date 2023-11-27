@@ -8,6 +8,7 @@ import { JWTEncrypter } from './jwt-encrypter'
 import { BCryptHasher } from './bcrypt-hasher'
 
 @Module({
+  imports: [],
   providers: [
     {
       provide: Encrypter,

@@ -1,4 +1,4 @@
-import { Either, right } from '@/core/either'
+import { Either, left, right } from '@/core/either'
 import { Injectable } from '@nestjs/common'
 import { StudentsRepository } from '../repositories/students-repository'
 import { HashComparer } from '../crypto/hash-comparer'
@@ -32,16 +32,16 @@ export class AuthenticateStudentUseCase {
     const student = await this.studentsRepository.findByEmail(email)
 
     if (!student) {
-      throw new WrongCredentialsError()
+      return left(new WrongCredentialsError())
     }
 
-    const isPasswordValid = this.hashComparer.compare(
+    const isPasswordValid = await this.hashComparer.compare(
       password,
       student.password,
     )
 
     if (!isPasswordValid) {
-      throw new WrongCredentialsError()
+      return left(new WrongCredentialsError())
     }
 
     const accessToken = await this.encrypter.encrypt({
