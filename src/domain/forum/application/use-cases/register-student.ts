@@ -1,4 +1,4 @@
-import { Either, right } from '@/core/either'
+import { Either, left, right } from '@/core/either'
 import { Injectable } from '@nestjs/common'
 import { Student } from '../../enterprise/entities/student'
 import { StudentsRepository } from '../repositories/students-repository'
@@ -34,7 +34,7 @@ export class RegisterStudentUseCase {
       await this.studentsRepository.findByEmail(email)
 
     if (studentWithSameEmail) {
-      throw new StudentAlreadyExistsError(email)
+      return left(new StudentAlreadyExistsError(email))
     }
 
     const hashedPassword = await this.hashGenerator.hash(password)
