@@ -46,10 +46,10 @@ model Answer {
   content    String
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime? @updatedAt @map("updated_at")
-  userId     String
+  authorId   String
   questionId String    @map("question_id")
 
-  author       User         @relation(fields: [userId], references: [id])
+  author       User         @relation(fields: [authorId], references: [id])
   bestAnswerOn Question?    @relation("bestAnswer")
   question     Question     @relation(fields: [questionId], references: [id])
   comments     Comment[]
