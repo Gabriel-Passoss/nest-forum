@@ -21,7 +21,7 @@ export class PrismaQuestionCommentMapper {
   }
 
   static toPrisma(
-    questionComment: PrismaComment,
+    questionComment: QuestionComment,
   ): Prisma.CommentUncheckedCreateInput {
     if (!questionComment.questionId) {
       throw new Error('Invalid comment type.')
