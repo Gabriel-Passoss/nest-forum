@@ -52,7 +52,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
   async create(question: Question): Promise<void> {
     const data = PrismaQuestionMapper.toPrisma(question)
 
-    await this.prisma.comment.create({
+    await this.prisma.question.create({
       data,
     })
   }
@@ -60,7 +60,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
   async save(question: Question): Promise<void> {
     const data = PrismaQuestionMapper.toPrisma(question)
 
-    await this.prisma.comment.update({
+    await this.prisma.question.update({
       where: {
         id: question.id.toString(),
       },
@@ -69,7 +69,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
   }
 
   async delete(question: Question): Promise<void> {
-    await this.prisma.comment.delete({
+    await this.prisma.question.delete({
       where: {
         id: question.id.toString(),
       },
