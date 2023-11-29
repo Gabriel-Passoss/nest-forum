@@ -7,7 +7,7 @@ import request from 'supertest'
 import { QuestionFactory } from 'test/factories/make-question'
 import { StudentFactory } from 'test/factories/make-student'
 
-describe('Get question by slug (E2E)', () => {
+describe('Upload and create attachment (E2E)', () => {
   let app: INestApplication
   let jwt: JwtService
   let accessToken: string
@@ -37,5 +37,8 @@ describe('Get question by slug (E2E)', () => {
       .attach('file', './test/e2e/test-photo.jpeg')
 
     expect(response.statusCode).toBe(201)
+    expect(response.body).toEqual({
+      attachmentId: expect.any(String),
+    })
   })
 })
